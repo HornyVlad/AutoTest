@@ -19,18 +19,21 @@ public class LoginPageP7 extends BasePageP7 {
         waitElement(btnPost).click();
         return this;
     }
+    //Ввод логина на странице авторизации
     public LoginPageP7 enterLogin(){
         WebElement fieldLogin = driver.findElement(loginField);
         waitElement(fieldLogin).click();
         fieldLogin.sendKeys("vlad.kochergin.1996@mail.ru");
         return this;
     }
+    //Ввод пароля на странице авторизации
     public LoginPageP7 enterPassword(){
         WebElement fieldPass = driver.findElement(passField);
         waitElement(fieldPass).click();
         fieldPass.sendKeys("mnbvcxz2002");
         return this;
     }
+    //Нажатие кнопки для входа
     public LoginPageP7 enterButton(){
         WebElement btnEnter = driver.findElement(enterBtn);
         waitElement(btnEnter).click();

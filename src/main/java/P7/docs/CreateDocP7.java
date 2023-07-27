@@ -17,6 +17,7 @@ public class CreateDocP7 extends BasePageP7 {
         super(driver);
     }
 
+    //Создаём новый документ
     public CreateDocP7 createDoc(){
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(firstCreateBtn));
         WebElement firstBtnCreate = driver.findElement(firstCreateBtn);

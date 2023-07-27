@@ -9,7 +9,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.Set;
 
@@ -25,6 +24,7 @@ public class NewDocP7 extends BasePageP7 {
         super(driver);
     }
 
+    //У нас открылось новое окно и нужно на него переключиться
     public NewDocP7 switchWindow(){
         String window1 = driver.getWindowHandle();
         Set <String> allWindows = driver.getWindowHandles();
@@ -38,12 +38,14 @@ public class NewDocP7 extends BasePageP7 {
         driver.switchTo().window(window2);
         return this;
     }
+    //В новом окне присутствуют 2 фрейма и нужно переключиться на необходимый
     public NewDocP7 switchFrame(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"wrap\"]/iframe")));
         WebElement iframe = driver.findElement(By.cssSelector("#wrap > iframe"));
         driver.switchTo().frame(iframe);
         return this;
     }
+    //2) Ариал 12 жирный
     public NewDocP7 task2(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.elementToBeClickable(mainTabBtn));
@@ -56,12 +58,11 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(boldTypeFont).click();
         new Actions(driver).sendKeys("ариал 12 жирный\n").perform();
         waitElement(boldTypeFont).click();
-        //driver.switchTo().defaultContent();
         WebElement save = driver.findElement(saveBtn);
         waitElement(save).click();
         return this;
     }
-
+    //3) Ариал 13 наклонный
     public NewDocP7 task3(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement mainTab = driver.findElement(mainTabBtn);
@@ -77,7 +78,7 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //4) Ариал 14 наклонный
     public NewDocP7 task4(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement mainTab = driver.findElement(mainTabBtn);
@@ -93,30 +94,36 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //5) 4 столбца
     public NewDocP7 task5(){
         int cols = 4;
+        //переключение на вкладку макет
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement layoutTab = driver.findElement(By.xpath("//*[@id=\"toolbar\"]/div/div[1]/section/ul/li[4]"));
         waitElement(layoutTab).click();
 
+        //Создание разрыва
         WebElement gapBtn = driver.findElement(By.xpath("//*[@id=\"id-toolbar-toolbar__icon btn-pagebreak1\"]/button[2]"));
         waitElement(gapBtn).click();
         WebElement choiceGapBtn = driver.findElement(By.xpath("//*[@id=\"id-toolbar-toolbar__icon btn-pagebreak1\"]/ul/li[3]"));
-        waitElement(choiceGapBtn).click();
-        WebElement choiceTypeGapBtn = driver.findElement(By.xpath("//*[@id=\"asc-gen2126\"]"));
-        new Actions(driver).moveToElement(choiceGapBtn).moveToElement(choiceTypeGapBtn).click().build().perform();
+        WebElement choiceTypeGapBtn = driver.findElement(By.xpath("(//a[starts-with(text(), \"На текущей странице\")])[2]"));
+        new Actions(driver).moveToElement(choiceGapBtn).perform();
+        new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.elementToBeClickable(choiceTypeGapBtn));
+        new Actions(driver).moveToElement(choiceTypeGapBtn).click().perform();
 
+        //Делаем текст в 4 столбца
         WebElement columnBtn = driver.findElement(By.xpath("//*[@id=\"tlbtn-columns\"]/button"));
         waitElement(columnBtn).click();
         WebElement columnParamsBtn = driver.findElement(By.xpath("//*[@id=\"asc-gen325\"]"));
         waitElement(columnParamsBtn).click();
         WebElement inputNumCols = driver.findElement(By.xpath("//*[@id=\"custom-columns-spin-num\"]/input"));
+        inputNumCols.sendKeys(Keys.BACK_SPACE);
         inputNumCols.sendKeys(Integer.toString(cols));
         WebElement confirmNumColsBtn = driver.findElement(By.xpath("//button[@class = 'btn normal dlg-btn primary']"));
         waitElement(confirmNumColsBtn).click();
 
-        choiceGapBtn = driver.findElement(By.xpath("//*[@id=\"asc-gen2136\"]"));
+        //Заполняем 4 столбца
+        choiceGapBtn = driver.findElement(By.xpath("(//a[starts-with(text(), \"Вставить разрыв колонки\")])[2]"));
         new Actions(driver).sendKeys("1 столбец").perform();
         for(int i = 1; i < cols; i++){
             waitElement(gapBtn).click();
@@ -124,11 +131,15 @@ public class NewDocP7 extends BasePageP7 {
             new Actions(driver).sendKeys(i + 1 + " столбец").perform();
         }
 
+        //Создаём разрыв
         waitElement(gapBtn).click();
         choiceGapBtn = driver.findElement(By.xpath("//*[@id=\"id-toolbar-toolbar__icon btn-pagebreak1\"]/ul/li[3]"));
         waitElement(choiceGapBtn).click();
-        new Actions(driver).moveToElement(choiceGapBtn).moveToElement(driver.findElement(By.xpath("//*[@id=\"asc-gen2126\"]"))).click().build().perform();
+        new Actions(driver).moveToElement(choiceGapBtn).perform();
+        new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.elementToBeClickable(choiceTypeGapBtn));
+        new Actions(driver).moveToElement(choiceTypeGapBtn).click().perform();
 
+        //Меняем количество столбцов на 1
         waitElement(columnBtn).click();
         columnParamsBtn = driver.findElement(By.xpath("//*[@id=\"asc-gen313\"]"));
         waitElement(columnParamsBtn).click();
@@ -136,7 +147,7 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //6) Выравнивание по левому краю
     public NewDocP7 task6(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement mainTab = driver.findElement(mainTabBtn);
@@ -148,7 +159,7 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //7) Выравнивание по правому краю
     public NewDocP7 task7(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement mainTab = driver.findElement(mainTabBtn);
@@ -162,7 +173,7 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //8) Выравнивание по ширине
     public NewDocP7 task8(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement mainTab = driver.findElement(mainTabBtn);
@@ -176,26 +187,34 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //9) Создание таблицы в 5 строк и колонок
     public NewDocP7 task9(){
         int cols = 5, rows = 5;
+
+        //Открытие вкладки "Вставка"
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement insertTab = driver.findElement(insertTabBtn);
         waitElement(insertTab).click();
+
+        //Нажатие кнопки настройки размеров таблицы
         WebElement insertTable = driver.findElement(By.xpath("//*[@id=\"tlbtn-inserttable\"]/button"));
         waitElement(insertTable).click();
         WebElement paramsTable = driver.findElement(By.xpath("//*[@id=\"asc-gen223\"]"));
         waitElement(paramsTable).click();
 
+        //Установка размеров таблицы
         WebElement colsTable = driver.findElement(By.xpath("//div[@class = 'columns-val spinner']//input[@class = 'form-control']"));
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.elementToBeClickable(colsTable));
+        colsTable.sendKeys(Keys.BACK_SPACE);
         colsTable.sendKeys(Integer.toString(cols));
         WebElement rowsTable = driver.findElement(By.xpath("//div[@class = 'rows-val spinner']//input[@class = 'form-control']"));
         waitElement(rowsTable).click();
+        rowsTable.sendKeys(Keys.BACK_SPACE);
         rowsTable.sendKeys(Integer.toString(rows));
         WebElement confirmParamsTable = driver.findElement(By.xpath("//button[@class = 'btn normal dlg-btn primary']"));
         waitElement(confirmParamsTable).click();
 
+        //Заполнение таблицы
         for(int i = 0; i < rows * cols; i++){
             new Actions(driver).sendKeys(i + 1 +" ячейка").perform();
             new Actions(driver).keyDown(Keys.ARROW_RIGHT).perform();
@@ -205,7 +224,7 @@ public class NewDocP7 extends BasePageP7 {
         waitElement(save).click();
         return this;
     }
-
+    //10) Вставка 5 картинок
     public NewDocP7 task10(){
         new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"id_viewer_overlay\"]")));
         WebElement insertTab = driver.findElement(insertTabBtn);
