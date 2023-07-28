@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
-import java.util.function.Function;
 
 
 /**
@@ -60,7 +59,7 @@ public class BaseActions {
     }
 
     @Step(value = "Ожидание элемента {0}")
-    protected void waitElementVisible(String selector) {
+    protected WebElement waitElementVisible(String selector) {
         By by = stringToBy(selector);
         try {
             new WebDriverWait(driver, Duration.ofSeconds(Constant.TimeOut.SHORT))
@@ -68,11 +67,11 @@ public class BaseActions {
         } catch (TimeoutException timeoutEx) {
             Assert.fail("Элемент " + selector + " не найден за " + Constant.TimeOut.SHORT + " секунд");
         }
-
+        return driver.findElement(by);
     }
 
     @Step(value = "Ожидание элемента {0}")
-    protected void waitElementVisible(String selector, long timeOut) {
+    protected WebElement waitElementVisible(String selector, long timeOut) {
         By by = stringToBy(selector);
         try {
             new WebDriverWait(driver, Duration.ofSeconds(timeOut))
@@ -80,10 +79,11 @@ public class BaseActions {
         } catch (TimeoutException timeoutEx) {
             Assert.fail("Элемент " + selector + " не найден за " + timeOut + " секунд");
         }
+        return driver.findElement(by);
     }
 
     @Step(value = "Ожидание элемента в DOM {0}")
-    protected void waitElementDom(String selector, long timeOut) {
+    protected WebElement waitElementDom(String selector, long timeOut) {
         By by = stringToBy(selector);
         try {
             new WebDriverWait(driver, Duration.ofSeconds(timeOut))
@@ -91,10 +91,11 @@ public class BaseActions {
         } catch (TimeoutException timeoutEx) {
             Assert.fail("Элемент " + selector + " не найден в DOM за " + timeOut + " секунд");
         }
+        return driver.findElement(by);
     }
 
     @Step(value = "Ожидание элемента в DOM {0}")
-    protected void waitElementDom(String selector) {
+    protected WebElement waitElementDom(String selector) {
         By by = stringToBy(selector);
         try {
             new WebDriverWait(driver, Duration.ofSeconds(Constant.TimeOut.SHORT))
@@ -102,6 +103,7 @@ public class BaseActions {
         } catch (TimeoutException timeoutEx) {
             Assert.fail("Элемент " + selector + " не найден в DOM за " + Constant.TimeOut.SHORT + " секунд");
         }
+        return driver.findElement(by);
     }
 
     @Step(value = "Ожидание элемента {0} или ошибки {1}")
@@ -129,9 +131,10 @@ public class BaseActions {
     }
 
     @Step(value = "Заполнение поля {0}")
-    protected void fillField(String selector, String text) {
+    protected WebElement fillField(String selector, String text) {
         By by = stringToBy(selector);
         driver.findElement(by).sendKeys(text);
+        return driver.findElement(by);
     }
 
     @Step(value = "Нажатие на кнопку {0}")

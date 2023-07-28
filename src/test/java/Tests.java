@@ -19,7 +19,7 @@ public class Tests extends BaseTest {
         loginPageP7.enterLogin();
         loginPageP7.enterPassword();
         loginPageP7.enterButton();
-        createDocP7.createDoc();
+        createDocP7.createDoc2();
         newDocP7.switchWindow();
         newDocP7.switchFrame();
         newDocP7.task2();
