@@ -25,10 +25,6 @@ public class CommonActions {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
-        // Warning: Do not mix implicit and explicit waits. Неявные ожидания отключены
-        // из-за непредсказуемости результата с явными ожиданиями
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constant.TimeOut.IMPLICIT_WAIT));
-
         return driver;
     }
 }

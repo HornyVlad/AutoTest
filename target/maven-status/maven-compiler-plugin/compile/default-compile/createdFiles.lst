@@ -1,7 +1,11 @@
+TestP7\base\MyBaseActions.class
+TestP7\files\FilesPage.class
 pages\base\BaseActions.class
+TestP7\newDoc\NewDocumentPage.class
 common\TimeDate.class
 pages\base\BasePage.class
 common\Config.class
+TestP7\authorization\AuthorizationPage.class
 constant\Users.class
 models\UserModel.class
 common\Server.class
@@ -10,9 +14,5 @@ steps\PageSteps.class
 pages\login\LoginPage.class
 common\CommonActions.class
 logger\ConsoleLog.class
-P7\login\LoginPageP7.class
 constant\Constant.class
 pages\main\MainPage.class
-P7\base\BasePageP7.class
-P7\newDoc\NewDocP7.class
-P7\docs\CreateDocP7.class

@@ -1,4 +1,3 @@
-import P7.base.BasePageP7;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -10,26 +9,25 @@ import org.testng.annotations.Test;
 @Feature("Тесты")
 @Test
 public class Tests extends BaseTest {
-
     @Story("Тест 1")
     @Link("google.com")
     @Test
     public void test() {
-        basePageP7.open("https://sshprot.r7-office.ru/Products/Files/#140307");
-        loginPageP7.enterLogin();
-        loginPageP7.enterPassword();
-        loginPageP7.enterButton();
-        createDocP7.createDoc2();
-        newDocP7.switchWindow();
-        newDocP7.switchFrame();
-        newDocP7.task2();
-        newDocP7.task3();
-        newDocP7.task4();
-        newDocP7.task5();
-        newDocP7.task6();
-        newDocP7.task7();
-        newDocP7.task8();
-        newDocP7.task9();
-        newDocP7.task10();
+        myBaseActions.open("https://sshprot2.r7-office.ru/Products/Files/#144368");
+        authorizationPage.authorization("vladiko.gladiko@vk.com","mnbvcxz2002");
+
+        filesPage.createDoc();
+
+        newDocumentPage.switchWindow();
+        newDocumentPage.switchFrame();
+        newDocumentPage.textAndBoldFontParams("ариал 12 жирный", 12);
+        newDocumentPage.textAndItalicFontParams("ариал 13 наклонный", 13);
+        newDocumentPage.textAndStrikeoutFontParams("ариал 14 зачёркнутый", 14);
+        newDocumentPage.splitIntoColumns(4);
+        newDocumentPage.textAlignmentLeft("выравнивание по левому краю");
+        newDocumentPage.textAlignmentRight("выравнивание по правому краю");
+        newDocumentPage.textAlignmentWidth("выравнивание по ширине");
+        newDocumentPage.creatingTable(5,5);
+        newDocumentPage.insertingImages(4 ,"https://sun9-36.userapi.com/impg/tj9Uld2M1EiT-ipJ7SWAh9rWvQq9TnjHffr0bA/XeC3sZWs5gU.jpg?size=960x1280&quality=96&sign=d42390ae2d3b08bcab1ecfae38b7201b&type=album");
     }
 }

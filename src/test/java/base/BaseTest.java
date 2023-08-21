@@ -1,9 +1,9 @@
 package base;
 
-import P7.base.BasePageP7;
-import P7.docs.CreateDocP7;
-import P7.login.LoginPageP7;
-import P7.newDoc.NewDocP7;
+import TestP7.base.MyBaseActions;
+import TestP7.files.FilesPage;
+import TestP7.authorization.AuthorizationPage;
+import TestP7.newDoc.NewDocumentPage;
 import common.CommonActions;
 import common.Config;
 import io.qameta.allure.Attachment;
@@ -16,10 +16,10 @@ import org.testng.annotations.*;
 public class BaseTest {
     protected WebDriver driver = CommonActions.createDriver();
     private Boolean isClosing = false;
-    protected BasePageP7 basePageP7 = new BasePageP7(driver);
-    protected LoginPageP7 loginPageP7 = new LoginPageP7(driver);
-    protected CreateDocP7 createDocP7 = new CreateDocP7(driver);
-    protected NewDocP7 newDocP7 = new NewDocP7(driver);
+    protected MyBaseActions myBaseActions = new MyBaseActions(driver);
+    protected AuthorizationPage authorizationPage = new AuthorizationPage(driver);
+    protected FilesPage filesPage = new FilesPage(driver);
+    protected NewDocumentPage newDocumentPage = new NewDocumentPage(driver);
 
     @AfterTest
     public void afterTestClearCookies() {
